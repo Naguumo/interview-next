@@ -14,7 +14,7 @@ export const PrimaryHeader = () => {
   const { colorMode, toggleColorMode } = useColorMode()
   return (
     <chakra.div
-      height='5vh'
+      height='60px'
       bg='gray.700'
       color='white'
       position='sticky'

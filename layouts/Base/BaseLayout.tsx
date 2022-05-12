@@ -10,7 +10,7 @@ export const BaseLayout = ({ label, children }: BaseLayoutProps) => {
   return (
     <>
       <PrimaryHeader />
-      <Container marginTop={5} as='main' variant='full'>
+      <Container marginY={5} as='main' variant='full'>
         {label && <Heading marginBottom={5}>{label}</Heading>}
         {children}
       </Container>
