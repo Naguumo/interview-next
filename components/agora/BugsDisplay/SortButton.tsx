@@ -1,4 +1,4 @@
-import { chakra } from '@chakra-ui/react'
+import { Th } from '@chakra-ui/react'
 
 type SortButtonProps = { onClick: () => void; active: boolean }
 
@@ -8,17 +8,19 @@ export const SortButton: React.FC<SortButtonProps> = ({
   children,
 }) => {
   return (
-    <chakra.th
+    <Th
       onClick={onClick}
       cursor='pointer'
       className={active ? 'active' : ''}
-      color='black'
       sx={{
         '&.active': {
-          color: 'blue',
+          color: 'blue.300',
+        },
+        '&:hover': {
+          color: 'blue.600',
         },
       }}>
       {children}
-    </chakra.th>
+    </Th>
   )
 }

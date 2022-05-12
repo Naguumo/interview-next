@@ -1,3 +1,4 @@
+import { Table, Tbody, Td, Thead, Tr } from '@chakra-ui/react'
 import { BugsDataRow, BugsDataType } from '@lib/agora/useBugsData'
 import { useEffect, useMemo, useState } from 'react'
 import { SortButton } from './SortButton'
@@ -40,9 +41,9 @@ export const BugsDisplay: React.FC<BugsDisplayProps> = ({ bugs }) => {
   }, [sortType])
 
   return (
-    <table>
-      <thead>
-        <tr>
+    <Table>
+      <Thead>
+        <Tr>
           <SortButton
             onClick={() => {
               setSortType('Id')
@@ -83,19 +84,19 @@ export const BugsDisplay: React.FC<BugsDisplayProps> = ({ bugs }) => {
             active={sortType === 'Priority'}>
             Priority
           </SortButton>
-        </tr>
-      </thead>
-      <tbody>
+        </Tr>
+      </Thead>
+      <Tbody>
         {internalBugList.map((bug) => (
-          <tr key={bug.Id}>
-            <td>{bug.Id}</td>
-            <td>{bug.Title}</td>
-            <td>{new Date(bug.Created).toLocaleDateString()}</td>
-            <td>{'★'.repeat(bug.Severity)}</td>
-            <td>{bug.Priority}</td>
-          </tr>
+          <Tr key={bug.Id}>
+            <Td>{bug.Id}</Td>
+            <Td>{bug.Title}</Td>
+            <Td>{new Date(bug.Created).toLocaleDateString()}</Td>
+            <Td>{'★'.repeat(bug.Severity)}</Td>
+            <Td>{bug.Priority}</Td>
+          </Tr>
         ))}
-      </tbody>
-    </table>
+      </Tbody>
+    </Table>
   )
 }

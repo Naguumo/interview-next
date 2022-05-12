@@ -5,8 +5,8 @@ import { parseString } from '@fast-csv/parse'
 import { BugsDataType } from '@lib/agora/useBugsData'
 
 // const fileLocation = resolve('./files/bugData.json')
-// TODO: Remove
-let tempStorage = ''
+// TODO: Remove this
+let tempStorage = '[]'
 
 const saveFile = (text: string) => {
   const bugsData: BugsDataType = []
@@ -18,7 +18,6 @@ const saveFile = (text: string) => {
       // TODO: Save to file bucket
       // writeFileSync(fileLocation, JSON.stringify(bugsData, undefined, 1))
       tempStorage = JSON.stringify(bugsData, undefined, 1)
-      console.log('Saving file...', JSON.stringify(bugsData, undefined, 1))
     })
 }
 
@@ -28,7 +27,7 @@ const handler: NextApiHandler = ({ method, body }, res) => {
       // TODO: Read from file bucket
       // const file = readFileSync(fileLocation, { encoding: 'utf8' })
       const file = tempStorage
-      res.status(200).json(file)
+      res.status(200).json(JSON.parse(file))
       break
     case 'POST':
       saveFile(body)

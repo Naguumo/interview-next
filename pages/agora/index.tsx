@@ -1,4 +1,4 @@
-import { chakra, Flex, Text } from '@chakra-ui/react'
+import { Button, chakra, Flex, Text } from '@chakra-ui/react'
 import { BugsDisplay } from '@components/agora/BugsDisplay'
 import { BaseLayout } from '@layouts/Base'
 import { useBugsData } from '@lib/agora/useBugsData'
@@ -9,7 +9,16 @@ const AgoraPage: NextPage = () => {
   return (
     <BaseLayout label='Agora - Bugs Uploader'>
       {bugs.length > 0 ? (
-        <BugsDisplay bugs={bugs} />
+        <>
+          <BugsDisplay bugs={bugs} />
+          <Button
+            marginY={5}
+            onClick={() => {
+              uploadBugsData(new File([], 'bugData'))
+            }}>
+            Clear Data
+          </Button>
+        </>
       ) : (
         <Flex
           alignItems='center'
