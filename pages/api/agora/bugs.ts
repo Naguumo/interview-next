@@ -1,12 +1,9 @@
-// import { readFileSync, writeFileSync } from 'fs'
-// import { resolve } from 'path'
 import { NextApiHandler } from 'next'
 import { parseString } from '@fast-csv/parse'
 import { BugsDataType } from '@lib/agora/useBugsData'
+import axios from 'axios'
 
-// const fileLocation = resolve('./files/bugData.json')
-// TODO: Remove this
-let tempStorage = '[]'
+const storageUrl = 'https://json.extendsclass.com/bin/56b3c6de1240'
 
 const saveFile = (text: string) => {
   const bugsData: BugsDataType = []
@@ -15,19 +12,21 @@ const saveFile = (text: string) => {
       bugsData.push(row)
     })
     .on('end', () => {
-      // TODO: Save to file bucket
-      // writeFileSync(fileLocation, JSON.stringify(bugsData, undefined, 1))
-      tempStorage = JSON.stringify(bugsData, undefined, 1)
+      axios(storageUrl, {
+        method: 'put',
+        headers: {
+          'Security-key': 'ishaan-interviews-agora',
+        },
+        data: bugsData,
+      })
     })
 }
 
-const handler: NextApiHandler = ({ method, body }, res) => {
+const handler: NextApiHandler = async ({ method, body }, res) => {
   switch (method) {
     case 'GET':
-      // TODO: Read from file bucket
-      // const file = readFileSync(fileLocation, { encoding: 'utf8' })
-      const file = tempStorage
-      res.status(200).json(JSON.parse(file))
+      const { data } = await axios.get<BugsDataType>(storageUrl)
+      res.status(200).json(data)
       break
     case 'POST':
       saveFile(body)
